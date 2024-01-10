@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Car.API.DB
 {
-
     public class VechicleDbContext : DbContext
     {
         public VechicleDbContext(DbContextOptions options) : base(options)
@@ -11,6 +10,8 @@ namespace Car.API.DB
         }
         public DbSet<Cars> Cars { get; set; }
         public DbSet<CarModel> CarModels { get; set; }
+        public DbSet<UsersModel> Users { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,9 @@ namespace Car.API.DB
                 .HasForeignKey(c => c.CarModelId)
                 .OnDelete(DeleteBehavior.Restrict); 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UsersModel>()
+        .HasKey(u => u.Id);
         }
 
     }
